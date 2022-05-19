@@ -1,9 +1,9 @@
 #include <iostream>
-#include "Pieces.h"
-
+#include "Board.h"
 
 int main()
 {
-	std::cout << "abca";
+	Board game;
+	//std::cout << "abca";
 	return 0;
 }
