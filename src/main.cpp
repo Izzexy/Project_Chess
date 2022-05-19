@@ -1,4 +1,6 @@
 #include <iostream>
+#include "Pieces.h"
+
 
 int main()
 {
