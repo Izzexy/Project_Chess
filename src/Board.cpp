@@ -13,5 +13,5 @@ Board::Board()
 
 	board[3][4] = &pawn;
 
-	std::cout<<board[3][4]->possible_move(10,2);
+	std::cout<<board[3][4]->possible_move(3,2);
 }
