@@ -9,9 +9,10 @@ Board::Board()
 		board[i] = new Piece * [8];
 	}
 
-	Pawn pawn;
+	Piece *p;
+	
+	p = new Pawn();
+	board[3][4] = p;
 
-	board[3][4] = &pawn;
-
-	std::cout<<board[3][4]->get_movies();
+	std::cout<<p->get_type();
 }
