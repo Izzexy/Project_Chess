@@ -4,15 +4,17 @@ class Piece
 {
 protected:
 	//static const char type;
-
-	char type;
+	int x = -1;
+	int y = -1;
+	char type = 'n';
 	int movies =  0;
-	bool side; // 0 = white ||| 1 = black
+	bool side = -1; // 0 = white ||| 1 = black
 public:
 
 	virtual bool possible_move(int x, int y, Piece*** board) = 0; // w agrumencie wskaznik do tablicy, z ustawieniem bierek ---+++
 	virtual bool possible_capture(int x, int y, Piece*** board) = 0;// @up
 	//virtual char get_type() = 0;
+	//virtual void Promotion ->>>>>>>>>>>>dodaj!! czyli zmiana type!!!!
 	int get_movies();
 	char get_type();
 };
