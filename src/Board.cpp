@@ -11,7 +11,7 @@ Board::Board()
 
 	Piece *p;
 	
-	p = new Bishop();
+	p = new Knight();
 	board[3][4] = p;
 
 	std::cout<<p->get_type();

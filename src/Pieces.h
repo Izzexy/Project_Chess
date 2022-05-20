@@ -4,8 +4,8 @@ class Piece
 {
 protected:
 	//static const char type;
-	int x = -1;
-	int y = -1;
+	int x;
+	int y;
 	char type = 'n';
 	int movies =  0;
 	bool side = -1; // 0 = white ||| 1 = black
