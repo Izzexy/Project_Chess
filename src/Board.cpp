@@ -13,5 +13,5 @@ Board::Board()
 
 	board[3][4] = &pawn;
 
-	std::cout<<board[3][4]->get_type();
+	std::cout<<board[3][4]->get_movies();
 }
