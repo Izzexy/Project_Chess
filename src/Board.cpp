@@ -8,10 +8,10 @@ Board::Board()
 	{
 		board[i] = new Piece * [8];
 	}
-
+	// Tu ulozuc plansze
 	Piece *p;
 	
-	p = new Knight();
+	p = new Pawn();
 	board[3][4] = p;
 
 	std::cout<<p->get_type();

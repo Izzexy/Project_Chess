@@ -2,3 +2,5 @@ x64
 chess_project.vcxproj
 chess_project.vcxproj.user
 .vs
+Debug/
+Release/
