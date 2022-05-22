@@ -1,9 +1,10 @@
 #include <iostream>
-#include "Board.h"
 #include "Board_screen.h"
+
+//
 //int main()
 //{
-//	Board gameplay_board;
+//
 //	//Board w klasie "okno gry" w oknie potencjalnie bedzie tablica dostepnych, wybrana aktualnie biuerka(x, y)
 //	//std::cout << "abca";
 //	return 0;
@@ -11,6 +12,7 @@
 
 void basic_events(sf::Event& e, sf::RenderWindow& w)
 {
+    //std::cout << "ahoj1";
     if (e.type == sf::Event::Closed)
     {
         std::cout << "ahoj";
@@ -22,10 +24,11 @@ std::string window_state;
 static sf::Font font;
 int main()
 {
+    Board aaa;
     sf::Text t;
     sf::Texture a;
     sf::Font b;
-    sf::RenderWindow window(sf::VideoMode(1100, 900), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(1100, 900), "Project Chess");
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
 

@@ -1,5 +1,60 @@
 #include "Board_screen.h"
 
+sf::Texture* Board_screen::get_piece_txt(Piece* p)
+{
+    if (p->get_side() == 0)
+    {
+        switch (p->get_type())
+        {
+        case 'p':
+            return &p0_t;
+            break;
+        case 'N':
+            return &n0_t;
+            break;
+        case 'B':
+            return &b0_t;
+            break;
+        case 'R':
+            return &r0_t;
+            break;
+        case 'Q':
+            return &q0_t;
+            break;
+        case 'K':
+            return &k0_t;
+            break;
+        }
+    }
+    else
+    {
+        if (p->get_side() == 1)
+        {
+            switch (p->get_type())
+            {
+            case 'p':
+                return &p1_t;
+                break;
+            case 'N':
+                return &n1_t;
+                break;
+            case 'B':
+                return &b1_t;
+                break;
+            case 'R':
+                return &r1_t;
+                break;
+            case 'Q':
+                return &q1_t;
+                break;
+            case 'K':
+                return &k1_t;
+                break;
+            }
+        }
+    }
+}
+
 Board_screen::Board_screen(sf::RenderWindow& w)
 {
     //std::vector < sf::RectangleShape > kaf;
@@ -7,7 +62,7 @@ Board_screen::Board_screen(sf::RenderWindow& w)
 
     std::cout << "abc";
     sf::Color col;
-    col = sf::Color::White;
+    col = sf::Color::Blue;
 
     for (int i = 0; i < 8; i++)
     {
@@ -46,6 +101,20 @@ Board_screen::Board_screen(sf::RenderWindow& w)
         // error...
     }
 
+    //load pieces tex
+    p0_t.loadFromFile("img\\p0.png", sf::IntRect(0, 0, 100, 100));
+    p1_t.loadFromFile("img\\p1.png", sf::IntRect(0, 0, 100, 100));
+    n0_t.loadFromFile("img\\N0.png", sf::IntRect(0, 0, 100, 100));
+    n1_t.loadFromFile("img\\N1.png", sf::IntRect(0, 0, 100, 100));
+    b0_t.loadFromFile("img\\B0.png", sf::IntRect(0, 0, 100, 100));
+    b1_t.loadFromFile("img\\B1.png", sf::IntRect(0, 0, 100, 100));
+    r0_t.loadFromFile("img\\R0.png", sf::IntRect(0, 0, 100, 100));
+    r1_t.loadFromFile("img\\R1.png", sf::IntRect(0, 0, 100, 100));
+    q0_t.loadFromFile("img\\Q0.png", sf::IntRect(0, 0, 100, 100));
+    q1_t.loadFromFile("img\\Q1.png", sf::IntRect(0, 0, 100, 100));
+    k0_t.loadFromFile("img\\K0.png", sf::IntRect(0, 0, 100, 100));
+    k1_t.loadFromFile("img\\K1.png", sf::IntRect(0, 0, 100, 100));
+
 
     // Load it from a file
     if (!font->loadFromFile("font\\arial.ttf"))
@@ -64,6 +133,8 @@ Board_screen::Board_screen(sf::RenderWindow& w)
     {
         for (int x = 0; x < 8; x++)
         {
+
+            //("x: " + std::to_string(x) + " y " + std::to_string(y));
             np[x][y].setString(y_to_ch(x)+std::to_string(y+1));
             np[x][y].setFont(*font); // font is a sf::Font
             np[x][y].setCharacterSize(15);
@@ -73,8 +144,14 @@ Board_screen::Board_screen(sf::RenderWindow& w)
             //std::cout << np.getPosition().x << '\n';
             field[x][y] = new Button(kaf[x][y], np[x][y]);
 
-            movie_web[x][y].setTexture(movie_tex);
-            movie_web[x][y].setPosition(sf::Vector2f(50 + (100 * x), 750 - (y * 100)));
+            movie_weeb[x][y].setTexture(movie_tex);
+            movie_weeb[x][y].setPosition(sf::Vector2f(50 + (x * 100), 750 - (100 * y)));
+
+            if (board.get_piece(x, y) != nullptr)
+            {
+                pieces[x][y].setTexture(*get_piece_txt(board.get_piece(x, y)));
+                pieces[x][y].setPosition(sf::Vector2f(50 + (x * 100), 750 - (100 * y)));
+            }
         }
     }
 
@@ -95,8 +172,10 @@ void Board_screen::play(sf::RenderWindow& w, Actions basic_events)
 
         while (w.pollEvent(event))
         {
+            //akt bier
 
-            std::cout << "EVENT borad cren\n";
+
+            //std::cout << "EVENT borad cren\n";
             basic_events(event, w);
 
             if (event.type == sf::Event::MouseButtonPressed)
@@ -108,13 +187,29 @@ void Board_screen::play(sf::RenderWindow& w, Actions basic_events)
                     {
                         for (int x = 0; x < 8; x++)
                         {
+                            
                             field[x][y]->chState(w);
+                            std::cout << field[x][y]->getstate();// x HALOOOO y \n";
                             if (field[x][y]->getstate() == "pressed") 
                             {
-                                if (pressed.x != -1) { movie_web[pressed.x][pressed.y].setTexture(movie_tex); }
+                                if (pressed.x != -1) { movie_weeb[pressed.x][pressed.y].setTexture(movie_tex); }
+
+                                for (int y1 = 0; y1 < 8; y1++)
+                                {
+                                    for (int x1 = 0; x1 < 8; x1++)
+                                    {
+                                        possible_movie[x1][y1] = false;
+                                    }
+                                }
+
                                 pressed.x = x;
                                 pressed.y = y;
-                                movie_web[x][y].setTexture(pressed_tex);
+                                movie_weeb[x][y].setTexture(pressed_tex);
+                                //std::cout << std::to_string(x)+" "+std::to_string(y);
+
+                                // Tutaj funkcja ustawienie na movie_weeb mo¿liwe ruchy czyli possible_movies()
+                                // funkcja zedytuje possible movie [8][8]
+                                possible_movie[x][y + 1] = true;
                             }
                         }
                     }
@@ -133,16 +228,29 @@ void Board_screen::play(sf::RenderWindow& w, Actions basic_events)
             for (int x = 0; x < 8; x++)
             {
                 field[x][y]->display(w);
+                if (board.get_piece(x, y) != nullptr) 
+                {
+                    std::cout << board.get_piece(x,y)->get_type();
+                    w.draw(pieces[x][y]);
+                }
+                
+
+                
             }
         }
+        std::cout << "hoj\n";
 
         for (int y = 0; y < 8; y++)
         {
             for (int x = 0; x < 8; x++)
             {
-                if (sf::Vector2i(x,y) == pressed)
+                if (possible_movie[x][y]==true)
                 {
-                    w.draw(movie_web[x][y]);
+                    w.draw(movie_weeb[x][y]);
+                }
+                else if (sf::Vector2i(x,y) == pressed)
+                {
+                    w.draw(movie_weeb[x][y]);
                 }
             }
         }
