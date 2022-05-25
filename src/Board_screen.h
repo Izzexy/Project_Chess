@@ -10,8 +10,7 @@ class Board_screen
 	sf::Texture movie_tex, pressed_tex, p0_t, p1_t, b0_t, b1_t, n0_t, n1_t, r0_t, r1_t, k0_t, k1_t,
 		q0_t, q1_t;
 	sf::Sprite movie_weeb[8][8], pieces[8][8];
-	sf::Vector2i pressed;
-	bool possible_movie[8][8] = { false };
+	sf::Vector2i checked, pressed;
 
 
 	//sf::RectangleShape **white_field, black_field;

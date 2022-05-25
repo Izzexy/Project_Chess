@@ -15,7 +15,7 @@ void basic_events(sf::Event& e, sf::RenderWindow& w)
     //std::cout << "ahoj1";
     if (e.type == sf::Event::Closed)
     {
-        std::cout << "ahoj";
+        //std::cout << "ahoj";
         w.close();
     }
 }
@@ -28,7 +28,7 @@ int main()
     sf::Text t;
     sf::Texture a;
     sf::Font b;
-    sf::RenderWindow window(sf::VideoMode(1100, 900), "Project Chess");
+    sf::RenderWindow window(sf::VideoMode(1100, 900), "Project Chess", sf::Style::Close);
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
 

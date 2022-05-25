@@ -155,8 +155,8 @@ Board_screen::Board_screen(sf::RenderWindow& w)
         }
     }
 
-    pressed.x = -1;
-    pressed.y = -1;
+    checked.x = -1;
+    checked.y = -1;
 
 }
 
@@ -189,27 +189,51 @@ void Board_screen::play(sf::RenderWindow& w, Actions basic_events)
                         {
                             
                             field[x][y]->chState(w);
-                            std::cout << field[x][y]->getstate();// x HALOOOO y \n";
+                            //std::cout << field[x][y]->getstate();// x HALOOOO y \n";
                             if (field[x][y]->getstate() == "pressed") 
                             {
-                                if (pressed.x != -1) { movie_weeb[pressed.x][pressed.y].setTexture(movie_tex); }
+                                pressed.x = x;
+                                pressed.y = y;
 
-                                for (int y1 = 0; y1 < 8; y1++)
+                                /*for (int y1 = 0; y1 < 8; y1++)
                                 {
                                     for (int x1 = 0; x1 < 8; x1++)
                                     {
                                         possible_movie[x1][y1] = false;
                                     }
+                                }*/
+
+                                board.reset_possible_movies();
+
+                                if ((pressed == checked)||(board.get_piece(pressed.x,pressed.y)==nullptr)||
+                                    (board.get_piece(pressed.x, pressed.y)->get_side() == board.get_round() % 2))
+                                {
+                                    movie_weeb[checked.x][checked.y].setTexture(movie_tex);
+                                    checked.x = -1;
+                                    checked.y = -1;
+                                    y = 8;
+                                    break;
                                 }
 
-                                pressed.x = x;
-                                pressed.y = y;
+                                if (checked.x != -1) { movie_weeb[checked.x][checked.y].setTexture(movie_tex); }// if to zabezp 
+                                //przed 1 razem, nadaj poprzedniemu standard tekst
+
+                                checked.x = x;
+                                checked.y = y;
+
                                 movie_weeb[x][y].setTexture(pressed_tex);
+                                
+                                board.set_possible_movies(x, y);
+        
+                                
+
                                 //std::cout << std::to_string(x)+" "+std::to_string(y);
 
                                 // Tutaj funkcja ustawienie na movie_weeb mo¿liwe ruchy czyli possible_movies()
-                                // funkcja zedytuje possible movie [8][8]
-                                possible_movie[x][y + 1] = true;
+                                // funkcja zedytuje possible movie [8][8] na 1(ruch) lub 0(brak mozliwosci ruchu)
+                                // potem przy wykonianu ruchu, sprawdza czy na miejscu byla bierka i dokonuje bicia
+                                //
+                                //possible_movie[x][y + 1] = true;
                             }
                         }
                     }
@@ -230,7 +254,7 @@ void Board_screen::play(sf::RenderWindow& w, Actions basic_events)
                 field[x][y]->display(w);
                 if (board.get_piece(x, y) != nullptr) 
                 {
-                    std::cout << board.get_piece(x,y)->get_type();
+                    //std::cout << board.get_piece(x,y)->get_type();
                     w.draw(pieces[x][y]);
                 }
                 
@@ -238,17 +262,17 @@ void Board_screen::play(sf::RenderWindow& w, Actions basic_events)
                 
             }
         }
-        std::cout << "hoj\n";
+        //std::cout << "hoj\n";
 
         for (int y = 0; y < 8; y++)
         {
             for (int x = 0; x < 8; x++)
             {
-                if (possible_movie[x][y]==true)
+                if (board.get_possible_movie(x,y) == true)
                 {
                     w.draw(movie_weeb[x][y]);
                 }
-                else if (sf::Vector2i(x,y) == pressed)
+                else if (sf::Vector2i(x,y) == checked)
                 {
                     w.draw(movie_weeb[x][y]);
                 }
