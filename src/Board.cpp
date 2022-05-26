@@ -20,7 +20,7 @@ Board::Board()
 	piece[0][0] = new Rock(0);
 	piece[0][0]->set_x(0);
 	piece[0][0]->set_y(0);
-	piece[1][0] = new Knight(0);
+	piece[1][0] = new Knight(1);
 	piece[2][0] = new Bishop(0);
 	piece[3][0] = new Queen(0);
 	piece[4][0] = new King(0);
@@ -30,9 +30,11 @@ Board::Board()
 	piece[7][0]->set_x(7);
 	piece[7][0]->set_y(0);
 
-	for (int i = 0; i < 8; i++) { piece[i][1] = new Pawn(0);
-	piece[i][1]->set_x(i);
-	piece[i][1]->set_y(1);
+	for (int i = 0; i < 8; i++) 
+	{ 
+		piece[i][2] = new Pawn(0);
+		piece[i][2]->set_x(i);
+		piece[i][2]->set_y(2);
 	}
 
 	piece[0][7] = new Rock(1);
@@ -46,7 +48,8 @@ Board::Board()
 
 	for (int i = 0; i < 8; i++) { piece[i][6] = new Pawn(1); }
 
-	piece[0][6] = new King(1);
+	piece[0][6] = new Bishop(0);
+	piece[0][2] = nullptr;
 
 	
 	round = 1;
