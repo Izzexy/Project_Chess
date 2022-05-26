@@ -9,6 +9,7 @@ protected:
 	char type = 'n';
 	int movies = 0;
 	bool side; // 0 = white ||| 1 = black
+	virtual void move(bool** mov) = 0;
 public:
 
 	virtual void possible_move(Piece*** board, bool** possible_mov) = 0;// w agrumencie wskaznik do tablicy, z ustawieniem bierek ---+++

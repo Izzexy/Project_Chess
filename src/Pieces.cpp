@@ -136,9 +136,35 @@ Rock::Rock(bool side_)
 	side = side_;
 }
 
+void Rock::move(bool** mov)
+{
+	for (int xm = 1; xm + x < 8; xm++)
+	{
+		mov[xm + x][y] = true;
+	}
+
+	for (int xm = -1; xm + x > -1; xm--)
+	{
+		mov[xm + x][y] = true;
+	}
+
+	for (int ym = 1; ym + y < 8; ym++)
+	{
+		mov[x][ym + y] = true;
+	}
+
+	for (int ym = -1; ym + y >-1; ym--)
+	{
+		mov[x][ym + y] = true;
+	}
+}
+
 void Rock::possible_move(Piece*** board, bool** possible_mov)
 {
 	Piece* copy; //= new Piece(board[x][y]);
+
+	//dodaj funkcje movie w piece, zwroci wszystkie ruchy z danej pozycji(w pró¿ni)
+	// i zwróci do tablicy possible_mov, potem tablica zostaje przefiltrowanya przez kolizje i szachy
 
 	for (int yp = 1; yp + y < 8; yp++)
 	{
@@ -147,13 +173,12 @@ void Rock::possible_move(Piece*** board, bool** possible_mov)
 			possible_mov[x][y + yp] = true;
 			continue;
 		}
-	
-		if  (board[x][y + yp]->get_side() == side)  // zatrzymaj przed swoim
+		//(board[x][y + yp]->get_side() == side) ||
+		else if  ((board[x][y + yp]->get_type() == 'K'))  // zatrzymaj przed swoim
 		{
 			break;
 		}
-
-		if ((board[x][y + yp - 1]!=nullptr)&&(board[x][y + yp - 1]->get_side() != side)) // zatrzymaj na przeciwniku
+		else if ((board[x][y + yp - 1]!=nullptr)&&(board[x][y + yp - 1]->get_side() != side)) // zatrzymaj na przeciwniku
 		{
 			break;
 		}
@@ -163,6 +188,7 @@ void Rock::possible_move(Piece*** board, bool** possible_mov)
 		copy = board[x][y + yp];
 
 		//sprawdz czy nie bije krola, swojego lub poza zakres
+		
 		board[x][y + yp] = board[x][y];
 		board[x][y] = nullptr;//board[x][y + 1];
 

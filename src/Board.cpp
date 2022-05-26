@@ -46,6 +46,8 @@ Board::Board()
 
 	for (int i = 0; i < 8; i++) { piece[i][6] = new Pawn(1); }
 
+	piece[0][6] = new King(1);
+
 	
 	round = 1;
 
