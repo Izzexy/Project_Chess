@@ -150,7 +150,7 @@ Rock::Rock(bool side_)
 	side = side_;
 }
 
-void Rock::move(bool mov[8][8], Piece*** board)
+void Rock::move(bool mov[8][8], Piece*** board) /// piece*** na board nie?
 {
 	for (int xm = x+1; xm < 8; xm++)
 	{
@@ -227,7 +227,7 @@ void Rock::move(bool mov[8][8], Piece*** board)
 	}
 }
 
-void Rock::possible_move(Piece*** board, bool** possible_mov)
+void Rock::possible_move(Piece*** board, bool** possible_mov)/// piece*** na board nie?
 {
 	Piece* copy; //= new Piece(board[x][y]);
 
