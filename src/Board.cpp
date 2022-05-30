@@ -37,7 +37,7 @@ Board::Board()
 		piece[i][2]->set_y(2);*/
 	}
 
-	piece[4][1] = new Rock(4, 1, 1);
+	piece[5][1] = new Rock(5, 1, 1);
 	piece[1][7] = new Knight(1, 7, 1);
 	piece[7][2] = new Bishop(7, 2, 1);
 	piece[3][7] = new Queen(3, 7, 1);
@@ -86,4 +86,22 @@ void Board::reset_possible_movies()
 bool Board::get_possible_movie(int x, int y)
 {
 	return possible_movie[x][y];
+}
+
+void Board::move(int x, int y, int xm, int ym)
+{
+	if (piece[xm][ym] != nullptr)
+	{
+		delete piece[xm][ym];
+	}
+
+	piece[xm][ym] = piece[x][y];
+	piece[xm][ym]->set_x(xm);
+	piece[xm][ym]->set_y(ym);
+	piece[x][y] = nullptr;
+}
+
+void Board::next_round()
+{
+	round++;
 }

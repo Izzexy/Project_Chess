@@ -234,7 +234,8 @@ void Rock::move(bool mov[8][8], Piece*** board, bool* check) /// piece*** na boa
 		{
 			if ((board[x][ym]->get_side() == side) || (board[x][ym]->get_type() == 'K'))
 			{
-				if ((board[x][ym]->get_type() == 'K')&&(board[x][ym]->get_side() != side))*check = 1;
+				if ((board[x][ym]->get_type() == 'K')&&(board[x][ym]->get_side() != side)
+					&&(check!=nullptr)) *check = 1;
 				break;
 			}
 			else
@@ -245,10 +246,13 @@ void Rock::move(bool mov[8][8], Piece*** board, bool* check) /// piece*** na boa
 		}
 
 		mov[x][ym] = true;
+
+		//to w funkcje jakas np void check(xm,ym,board,check) return zamiast break, pod tym sprawdz
+		//czy check to true, jesli tak to return xd
 	}
 }
 
-void Rock::possible_move(Piece*** board, bool** possible_mov)/// piece*** na board nie?
+void Rock::possible_move(Piece*** board, bool** possible_mov)/// dla calej rodziny
 {
 	Piece* copy; //= new Piece(board[x][y]);
 

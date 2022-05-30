@@ -17,6 +17,9 @@ public:
 	void reset_possible_movies();
 	bool get_possible_movie(int x, int y);
 
+	void move(int x, int y, int xm, int ym);
+	void next_round();
+
 	// void move( x, y, x2, y2) sprawdza czy sie da move(zarkes ruchów w sytuacji), czy po tym mój król ma szacha , 
 	// bicie, promocja, szach, mat
 	// i jedze jak nie to odmowa

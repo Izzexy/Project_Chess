@@ -203,6 +203,24 @@ void Board_screen::play(sf::RenderWindow& w, Actions basic_events)
                                     }
                                 }*/
 
+                                if ((board.get_possible_movie(pressed.x,pressed.y)==true)&&(checked.x!=-1)) {
+
+                                    board.move(checked.x, checked.y, pressed.x, pressed.y);
+                                    pieces[x][y].setTexture(*get_piece_txt(board.get_piece(x, y)));
+                                    pieces[x][y].setPosition(sf::Vector2f(50 + (x * 100), 750 - (100 * y)));
+                                    movie_weeb[checked.x][checked.y].setTexture(movie_tex);
+                                    checked.x = -1;
+                                    checked.y = -1;
+
+                                    y = 8;
+                                    board.reset_possible_movies();
+
+                                    board.next_round();
+                                    break;
+                                    //move
+                                    //break
+                                }
+
                                 board.reset_possible_movies();
 
                                 if ((pressed == checked)||(board.get_piece(pressed.x,pressed.y)==nullptr)||
@@ -223,7 +241,7 @@ void Board_screen::play(sf::RenderWindow& w, Actions basic_events)
 
                                 movie_weeb[x][y].setTexture(pressed_tex);
                                 
-                                board.set_possible_movies(x, y);
+                                board.set_possible_movies(pressed.x, pressed.y);//x , y
         
                                 
 
