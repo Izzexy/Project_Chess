@@ -95,7 +95,7 @@ Board_screen::Board_screen(sf::RenderWindow& w)
         // error...
     }
 
-    if (!pressed_tex.loadFromFile("img\\image2.png", sf::IntRect(0, 0, 100, 100)))
+    if (!pressed_tex.loadFromFile("img\\Selected1.png", sf::IntRect(0, 0, 100, 100)))
     {
         std::cout << "reeeerrr";
         // error...
