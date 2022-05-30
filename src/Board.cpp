@@ -17,38 +17,38 @@ Board::Board()
 	}
 	// Tu ulozuc plansze
 	
-	piece[0][0] = new Rock(0);
-	piece[0][0]->set_x(0);
-	piece[0][0]->set_y(0);
-	piece[1][0] = new Knight(1);
-	piece[2][0] = new Bishop(0);
-	piece[3][0] = new Queen(0);
-	piece[4][0] = new King(0);
-	piece[5][0] = new Bishop(0);
-	piece[6][0] = new Knight(0);
-	piece[7][0] = new Rock(0);
-	piece[7][0]->set_x(7);
-	piece[7][0]->set_y(0);
+	piece[0][1] = new Rock(0, 1, 0);
+	//piece[0][0]->set_x(0);
+	//piece[0][0]->set_y(0);
+	piece[1][0] = new Knight(1, 0, 1);
+	piece[2][0] = new Bishop(2,0,0);
+	piece[3][0] = new Queen(3,0,0);
+	piece[4][0] = new King(4,0,0);
+	piece[5][0] = new Bishop(5,0,0);
+	piece[6][0] = new Knight(6,0,0);
+	piece[7][0] = new Rock(7,0,0);
+	//piece[7][0]->set_x(7);
+	//piece[7][0]->set_y(0);
 
 	for (int i = 0; i < 8; i++) 
 	{ 
-		piece[i][2] = new Pawn(0);
-		piece[i][2]->set_x(i);
-		piece[i][2]->set_y(2);
+		piece[i][3] = new Pawn(i, 3, 0);
+		/*piece[i][2]->set_x(i);
+		piece[i][2]->set_y(2);*/
 	}
 
-	piece[0][7] = new Rock(1);
-	piece[1][7] = new Knight(1);
-	piece[2][7] = new Bishop(1);
-	piece[3][7] = new Queen(1);
-	piece[4][7] = new King(1);
-	piece[5][7] = new Bishop(1);
-	piece[6][7] = new Knight(1);
-	piece[7][7] = new Rock(1);
+	piece[3][2] = new Rock(3, 2, 1);
+	piece[1][7] = new Knight(1, 7, 1);
+	piece[6][2] = new Bishop(6, 2, 1);
+	piece[3][7] = new Queen(3, 7, 1);
+	piece[4][7] = new King(4, 7, 1);
+	piece[5][7] = new Bishop(5, 7, 1);
+	piece[6][7] = new Knight(6, 7, 1);
+	piece[7][7] = new Rock(7, 7, 1);
 
-	for (int i = 0; i < 8; i++) { piece[i][6] = new Pawn(1); }
+	for (int i = 0; i < 8; i++) { piece[i][6] = new Pawn(i, 6, 1); }
 
-	piece[0][6] = new Bishop(0);
+	piece[0][6] = new Bishop(0, 6, 0);
 	piece[0][2] = nullptr;
 
 	

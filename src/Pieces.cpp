@@ -1,7 +1,6 @@
 #include "Pieces.h"
 
 
-
 int Piece::get_movies()
 {
 	return movies;
@@ -25,12 +24,12 @@ void Piece::set_y(int y_)
 }
 
 
-Pawn::Pawn(bool side_)
-{
-	type = 'p';
-	side = side_;
-}
-void Pawn::move(bool mov[8][8], Piece*** board)
+//Pawn::Pawn(bool side_)
+//{
+//	type = 'p';
+//	side = side_;
+//}
+void Pawn::move(bool mov[8][8], Piece*** board, bool* check)
 {
 
 }
@@ -94,14 +93,14 @@ bool Pawn::possible_capture(int x, int y, Piece*** board)
 //	type = 'K';
 //	movies = 10;
 //}
+//
+//Knight::Knight(bool side_)
+//{
+//	type = 'N';
+//	side = side_;
+//}
 
-Knight::Knight(bool side_)
-{
-	type = 'N';
-	side = side_;
-}
-
-void Knight::move(bool mov[8][8], Piece*** board)
+void Knight::move(bool mov[8][8], Piece*** board, bool* check)
 {
 
 }
@@ -123,20 +122,38 @@ bool Knight::possible_capture(int x, int y, Piece*** board)
 //{
 //	type = 'B';
 //}
-Bishop::Bishop(bool side_)
-{
-	type = 'B';
-	side = side_;
-}
+//Bishop::Bishop(bool side_)
+//{
+//	type = 'B';
+//	side = side_;
+//}
 
-void Bishop::move(bool mov[8][8], Piece*** board)
+void Bishop::move(bool mov[8][8], Piece*** board, bool* check)
 {
+	for (int xm = x - 1, ym = y - 1; ((xm < 8) && (ym > -1)); xm--, ym--)
+	{
+		if (board[xm][ym] != nullptr)
+		{
+			if ((board[xm][ym]->get_side() == side) || (board[xm][ym]->get_type() == 'K'))
+			{
+				if ((board[xm][ym]->get_type() == 'K') && (board[xm][ym]->get_side() != side)) *check = 1;
+				break;
+			}
+			else
+			{
+				mov[xm][y] = true;
+				break;
+			}
+		}
 
+
+		mov[xm][y] = true;
+
+	}
 }
 
 void Bishop::possible_move(Piece*** board, bool** possible_mov)
 {
-
 }
 
 bool Bishop::possible_capture(int x, int y, Piece*** board)
@@ -144,13 +161,13 @@ bool Bishop::possible_capture(int x, int y, Piece*** board)
 	return 1;
 }
 
-Rock::Rock(bool side_)
-{
-	type = 'R';
-	side = side_;
-}
+//Rock::Rock(bool side_)
+//{
+//	type = 'R';
+//	side = side_;
+//}
 
-void Rock::move(bool mov[8][8], Piece*** board) /// piece*** na board nie?
+void Rock::move(bool mov[8][8], Piece*** board, bool* check) /// piece*** na board nie?
 {
 	for (int xm = x+1; xm < 8; xm++)
 	{
@@ -158,6 +175,7 @@ void Rock::move(bool mov[8][8], Piece*** board) /// piece*** na board nie?
 		{
 			if ((board[xm][y]->get_side() == side) || (board[xm][y]->get_type() == 'K'))
 			{
+				if ((board[xm][y]->get_type() == 'K') &&(board[xm][y]->get_side() != side)) *check = 1;
 				break;
 			}
 			else
@@ -178,6 +196,7 @@ void Rock::move(bool mov[8][8], Piece*** board) /// piece*** na board nie?
 		{
 			if ((board[xm][y]->get_side() == side) || (board[xm][y]->get_type() == 'K'))
 			{
+				if ((board[xm][y]->get_type() == 'K') && (board[xm][y]->get_side() != side)) *check = 1;
 				break;
 			}
 			else
@@ -196,6 +215,7 @@ void Rock::move(bool mov[8][8], Piece*** board) /// piece*** na board nie?
 		{
 			if ((board[x][ym]->get_side() == side) || (board[x][ym]->get_type() == 'K'))
 			{
+				if ((board[x][ym]->get_type() == 'K') && (board[x][ym]->get_side() != side))*check = 1;
 				break;
 			}
 			else
@@ -214,6 +234,7 @@ void Rock::move(bool mov[8][8], Piece*** board) /// piece*** na board nie?
 		{
 			if ((board[x][ym]->get_side() == side) || (board[x][ym]->get_type() == 'K'))
 			{
+				if ((board[x][ym]->get_type() == 'K')&&(board[x][ym]->get_side() != side))*check = 1;
 				break;
 			}
 			else
@@ -271,7 +292,36 @@ void Rock::possible_move(Piece*** board, bool** possible_mov)/// piece*** na boa
 
 			//sprawdzanko szacha 
 			//jezeli dobrze to posssible mov = true
-			{possible_mov[xm][ym] = true; }
+			for (int y_chm = 0; y_chm < 8; y_chm++)
+			{
+				for (int x_chm = 0; x_chm < 8; x_chm++)
+				{
+					if ((board[x_chm][y_chm] == nullptr) || (board[x_chm][y_chm]->get_side() == side))
+					{
+						continue;
+					}
+					
+
+					bool trash[8][8] = { false };
+					bool* ch = new bool{ 0 };
+					std::cout << x_chm<<"  "<<y_chm<<'\n';
+
+					board[x_chm][y_chm]->move(trash, board, ch);
+					if (*ch == 0)
+					{
+						possible_mov[xm][ym] = true;
+					}
+					else
+					{
+						possible_mov[xm][ym] = false;
+						y_chm = 8;
+						break;
+					}
+
+					delete ch;
+				}
+			}
+			//{possible_mov[xm][ym] = true; }
 
 			board[x][y] = board[xm][ym];
 			board[xm][ym] = copy;
@@ -300,13 +350,13 @@ bool Rock::possible_capture(int x, int y, Piece*** board)
 	return 1;
 }
 
-Queen::Queen(bool side_)
-{
-	type = 'Q';
-	side = side_;
-}
+//Queen::Queen(bool side_)
+//{
+//	type = 'Q';
+//	side = side_;
+//}
 
-void Queen::move(bool mov[8][8], Piece*** board)
+void Queen::move(bool mov[8][8], Piece*** board, bool* check)
 {
 
 }
@@ -321,13 +371,13 @@ bool Queen::possible_capture(int x, int y, Piece*** board)
 	return 1;
 }
 
-King::King(bool side_)
-{
-	type = 'K';
-	side = side_;
-}
+//King::King(bool side_)
+//{
+//	type = 'K';
+//	side = side_;
+//}
 
-void King::move(bool mov[8][8], Piece*** board)
+void King::move(bool mov[8][8], Piece*** board, bool* check)
 {
 
 }
