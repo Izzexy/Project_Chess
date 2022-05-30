@@ -17,7 +17,7 @@ Board::Board()
 	}
 	// Tu ulozuc plansze
 	
-	piece[0][1] = new Rock(0, 1, 0);
+	piece[7][1] = new Rock(7, 1, 0);
 	//piece[0][0]->set_x(0);
 	//piece[0][0]->set_y(0);
 	piece[1][0] = new Knight(1, 0, 1);
@@ -37,9 +37,9 @@ Board::Board()
 		piece[i][2]->set_y(2);*/
 	}
 
-	piece[3][2] = new Rock(3, 2, 1);
+	piece[4][1] = new Rock(4, 1, 1);
 	piece[1][7] = new Knight(1, 7, 1);
-	piece[6][2] = new Bishop(6, 2, 1);
+	piece[7][2] = new Bishop(7, 2, 1);
 	piece[3][7] = new Queen(3, 7, 1);
 	piece[4][7] = new King(4, 7, 1);
 	piece[5][7] = new Bishop(5, 7, 1);

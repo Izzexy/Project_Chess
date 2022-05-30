@@ -130,7 +130,7 @@ bool Knight::possible_capture(int x, int y, Piece*** board)
 
 void Bishop::move(bool mov[8][8], Piece*** board, bool* check)
 {
-	for (int xm = x - 1, ym = y - 1; ((xm < 8) && (ym > -1)); xm--, ym--)
+	for (int xm = x - 1, ym = y - 1; ((xm > -1) && (ym > -1)); xm--, ym--)
 	{
 		if (board[xm][ym] != nullptr)
 		{
