@@ -180,7 +180,7 @@ void Board_screen::play(sf::RenderWindow& w, Actions basic_events)
 
             if (event.type == sf::Event::MouseButtonPressed)
             {
-                std::cout << "pressed\n";
+                //std::cout << "pressed\n";
                 if (event.mouseButton.button == sf::Mouse::Left)
                 {
                     for (int y = 0; y < 8; y++)
@@ -255,9 +255,9 @@ void Board_screen::play(sf::RenderWindow& w, Actions basic_events)
                             }
                         }
                     }
-                    std::cout << "the right button was pressed" << std::endl;
+                    /*std::cout << "the right button was pressed" << std::endl;
                     std::cout << "mouse x: " << event.mouseButton.x << std::endl;
-                    std::cout << "mouse y: " << event.mouseButton.y << std::endl;
+                    std::cout << "mouse y: " << event.mouseButton.y << std::endl;*/
                 }
             }
             //klikniecia na kafelki

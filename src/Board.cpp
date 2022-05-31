@@ -3,16 +3,16 @@
 
 Board::Board()
 {
-	possible_movie = new bool* [8];
+	possible_move = new bool* [8];
 	piece = new Piece * *[8];
 	for (int i = 0; i < 8; i++) 
 	{
 		piece[i] = new Piece * [8];
-		possible_movie[i] = new bool[8];
+		possible_move[i] = new bool[8];
 		for (int x = 0; x < 8; x++)
 		{
 			piece[i][x] = nullptr;
-			possible_movie[i][x] = false;
+			possible_move[i][x] = false;
 		}
 	}
 	// Tu ulozuc plansze
@@ -32,7 +32,7 @@ Board::Board()
 
 	for (int i = 0; i < 8; i++) 
 	{ 
-		piece[i][3] = new Pawn(i, 3, 0);
+		piece[i][1] = new Pawn(i, 1, 0);
 		/*piece[i][2]->set_x(i);
 		piece[i][2]->set_y(2);*/
 	}
@@ -69,7 +69,8 @@ int Board::get_round()
 
 void Board::set_possible_movies(int x, int y)
 {
-	get_piece(x, y)->possible_move(piece, possible_movie);
+	get_piece(x, y)->possible_move(piece, possible_move);
+	
 }
 
 void Board::reset_possible_movies()
@@ -78,14 +79,14 @@ void Board::reset_possible_movies()
 	{
 		for (int x = 0; x < 8; x++)
 		{		
-			possible_movie[i][x] = false;
+			possible_move[i][x] = false;
 		}
 	}
 }
 
 bool Board::get_possible_movie(int x, int y)
 {
-	return possible_movie[x][y];
+	return possible_move[x][y];
 }
 
 void Board::move(int x, int y, int xm, int ym)

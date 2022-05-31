@@ -5,7 +5,7 @@ class Board
 {
 	Piece*** piece;
 	int round;
-	bool** possible_movie;
+	bool** possible_move;
 
 public:
 	Board();
