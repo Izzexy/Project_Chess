@@ -9,7 +9,7 @@ protected:
 	int movies = 0;
 	bool side; // 0 = white ||| 1 = blac
 	bool check_movie(int xm, int ym, Piece*** board, bool mov[8][8], bool* check);// used in
-	//void move to set every single example
+	//void move to set every single example, returns 1 if field is nullptr
 	//virtual void set_collision_table(bool mov[8][8], Piece*** board, bool* check = nullptr) = 0;// 
 	//sets move 
 	//table taking into account colisions and/or sets check
