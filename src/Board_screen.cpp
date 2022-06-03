@@ -58,6 +58,7 @@ sf::Texture* Board_screen::get_piece_txt(Piece* p)
 Board_screen::Board_screen(sf::RenderWindow& w)
 {
     //std::vector < sf::RectangleShape > kaf;
+
     sf::RectangleShape kaf[8][8];
 
     std::cout << "abc";
@@ -165,8 +166,13 @@ void Board_screen::play(sf::RenderWindow& w, Actions basic_events)
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
 
+    sf::Cursor cursor;
+    cursor.loadFromSystem(sf::Cursor::Hand);
+
     while (true)
     {
+        w.setMouseCursor(cursor);
+
         sf::Event event;
         // window.pollEvent(event);
 
