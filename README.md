@@ -1,9 +1,9 @@
 # Project Chess
 
-Simple game for school project.
+Simple game for school project using Visual Studio.
 
 # How to open or run?
 
-To open project in VisualStudio run /chess_project.sln
+To open project in Visual Studio run /chess_project.sln
 
 To execute program at current version run /chess_project.exe
